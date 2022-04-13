@@ -3,11 +3,12 @@ import os, shutil
 from pgmagick import Image
 from os import listdir
 from os.path import isfile, join
-
+from pathlib import Path
 
 def main():
     print_header()
     setup_environment()
+    lowerjpg()
     image_process()
     da_smush()
 
@@ -49,6 +50,25 @@ def setup_environment():
         print(
             "Your environment is now set up. Please load images into the 'load_images_here' folder and run program again.")
         exit()
+
+# corrects the extension from uppercase JPG, JPEG, or jpeg to all lower case jpg
+def lowerjpg():
+    files = "load_images_here/"
+    listfiles = listdir(files)
+    
+    for f in  listfiles:
+        if f.endswith('JPG'):
+            p = Path(files + f)
+            prename = p.rename(p.with_suffix('.jpg'))
+            print(prename)
+        if f.endswith('JPEG'):
+            p = Path(files + f)
+            prename = p.rename(p.with_suffix('.jpg'))
+            print(prename)
+        if f.endswith('jpeg'):
+            p = Path(files + f)
+            prename = p.rename(p.with_suffix('.jpg'))
+            print(prename)
 
 
 def image_process():
